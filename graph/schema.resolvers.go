@@ -7,25 +7,16 @@ package graph
 import (
 	"context"
 	"go-gql/graph/model"
-
-	"github.com/google/uuid"
 )
 
 // CreateTodo is the resolver for the createTodo field.
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	return &model.Todo{
-		ID:   uuid.NewString(),
-		Text: input.Text,
-		Done: false,
-		User: &model.User{
-			ID: input.UserID,
-		},
-	}, nil
+	return r.Store.CreateTodo(ctx, &input)
 }
 
 // Todos is the resolver for the todos field.
 func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	return []*model.Todo{}, nil
+	return r.Store.GetTodos(ctx)
 }
 
 // Mutation returns MutationResolver implementation.
