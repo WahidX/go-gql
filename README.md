@@ -22,3 +22,9 @@ go mod tidy
 ```sh
 go run github.com/99designs/gqlgen init
 ```
+
+4. Now add your own `.graphqls` file in your own folder and modify the `gqlgen.yml` file like this.
+
+```
+
+```
