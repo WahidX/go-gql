@@ -1,8 +1,9 @@
 package main
 
 import (
-	"go-gql/graph"
-	"go-gql/graph/store"
+	"go-gql/todox"
+	"go-gql/todox/resolvers"
+	"go-gql/todox/store"
 	"log"
 	"net/http"
 	"os"
@@ -19,9 +20,13 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
-		Store: store.New(),
-	}}))
+	srv := handler.NewDefaultServer(todox.NewExecutableSchema(
+		todox.Config{
+			Resolvers: &resolvers.Resolver{
+				Store: store.New(),
+			},
+		},
+	))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

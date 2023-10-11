@@ -23,7 +23,7 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented: Users - users"))
+	return r.Resolver.Store.GetUsers(ctx), nil
 }
 
 // UserTodos is the resolver for the userTodos field.
@@ -33,7 +33,7 @@ func (r *queryResolver) UserTodos(ctx context.Context, userID *string) ([]*model
 
 // Todos is the resolver for the todos field.
 func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
+	return r.Resolver.Store.GetTodos(ctx), nil
 }
 
 // Mutation returns todox.MutationResolver implementation.

@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// This is a custom declared scaler
 type Timestamp time.Time
 
 func (t *Timestamp) UnmarshalGQL(v any) error {
