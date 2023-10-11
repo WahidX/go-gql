@@ -6,19 +6,33 @@ package resolvers
 
 import (
 	"context"
-	"fmt"
 	"go-gql/todox"
 	"go-gql/todox/model"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+	return r.Resolver.Store.CreateUser(ctx, &model.User{
+		ID:   uuid.NewString(),
+		Name: input.Name,
+		Age:  input.Age,
+	}), nil
 }
 
 // CreateTodo is the resolver for the createTodo field.
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+	return r.Resolver.Store.CreateTodo(ctx, &model.Todo{
+		ID:        uuid.NewString(),
+		Text:      input.Text,
+		Done:      false,
+		Timestamp: time.Now().Format(time.RFC3339),
+		User: &model.User{
+			ID: input.UserID,
+		},
+	}), nil
 }
 
 // Users is the resolver for the users field.
@@ -28,7 +42,7 @@ func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 
 // UserTodos is the resolver for the userTodos field.
 func (r *queryResolver) UserTodos(ctx context.Context, userID *string) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: UserTodos - userTodos"))
+	return r.Resolver.Store.UserTodos(ctx, *userID), nil
 }
 
 // Todos is the resolver for the todos field.
