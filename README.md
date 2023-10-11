@@ -1,7 +1,5 @@
 # go-gql
 
-> [WIP]
-
 A sample graphql server using gqlgen.
 
 1. Create a file `tools.go` with the below content.
@@ -31,6 +29,27 @@ A sample graphql server using gqlgen.
 
 4. Now add your own `.graphqls` file in your own folder and modify the `gqlgen.yml` accordingly.
    For this example added `schema.graphqls` file inside `todox` folder and adjusted the `gqlgen.yml` accordingly.
+
+## Folder Structure
+
+```txt
+   ├── model            [contains types/structs]
+   │   ├── Timestamp.go
+   │   └── models_gen.go
+   ├── resolvers        [contains resolvers - have access to service]
+   │   ├── resolver.go
+   │   └── schema.resolvers.go
+   ├── schema.graphqls  [graphql schema]
+   └── store            [persistent data layer]
+       ├── store.go
+       ├── todo.go
+       └── user.go
+```
+
+So the app has 2 layers.
+
+1. Resolvers (takes inputs and contains biz logic)
+2. Store (data layer which accesses the database or other persistent data store)
 
 ## Notes
 
