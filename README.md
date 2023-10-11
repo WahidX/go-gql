@@ -43,3 +43,14 @@ A sample graphql server using gqlgen.
 
   And we have to implement the datatype in this file.\
   `github.com/wahidx/go-gql/todox/model.Timestamp`
+
+- To Add persistent store.
+  To add a persistent store which can be any DB or a volatile data store. We can add it in the `Resolver{} struct` inside `resolver.go`.
+
+  ```go
+  type Resolver struct {
+    Store store.Store
+  }
+  ```
+
+  It's called dependency injection.
