@@ -80,3 +80,21 @@ So the app has 2 layers.
   - So we can still send normal request headers with it.
   - And we can return response with normal http status codes.
 -
+
+## Concepts
+
+- Schema Definition Language(SDL): A simple syntax for describing your data types, queries, mutations, subscriptions.
+- 3 Main graphql types
+  - Query
+  - Mutation
+  - Subscription
+- Resolvers: functions that responds to graphql requests
+- Queries and Mutations: Queries to fetch data, Mutations to do some write operation on data.
+
+## Things to learn
+
+- Fragments: To reuse parts of your queries and keep them DRY (Don't Repeat Yourself).
+- Variables: Know how to use variables to pass dynamic values to your GraphQL queries and mutations
+- Alias: Learn how to use aliases to request multiple fields with the same name from a single query
+- Directives: Understand GraphQL directives like @include and @skip to conditionally include or skip fields in a query
+-
