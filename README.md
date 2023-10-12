@@ -73,3 +73,10 @@ So the app has 2 layers.
   ```
 
   It's called dependency injection.
+
+- GraphQL endpoint
+  - So a graphql endpoint acts like a normal rest endpoint with POST method.\
+    `"/graphql" -> graphql handler`
+  - So we can still send normal request headers with it.
+  - And we can return response with normal http status codes.
+-
