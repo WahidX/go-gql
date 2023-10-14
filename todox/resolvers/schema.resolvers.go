@@ -6,6 +6,7 @@ package resolvers
 
 import (
 	"context"
+	"fmt"
 	"go-gql/todox"
 	"go-gql/todox/model"
 	"time"
@@ -50,11 +51,20 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 	return r.Resolver.Store.GetTodos(ctx), nil
 }
 
+// MessageSent is the resolver for the messageSent field.
+func (r *subscriptionResolver) MessageSent(ctx context.Context) (<-chan string, error) {
+	panic(fmt.Errorf("not implemented: MessageSent - messageSent"))
+}
+
 // Mutation returns todox.MutationResolver implementation.
 func (r *Resolver) Mutation() todox.MutationResolver { return &mutationResolver{r} }
 
 // Query returns todox.QueryResolver implementation.
 func (r *Resolver) Query() todox.QueryResolver { return &queryResolver{r} }
 
+// Subscription returns todox.SubscriptionResolver implementation.
+func (r *Resolver) Subscription() todox.SubscriptionResolver { return &subscriptionResolver{r} }
+
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+type subscriptionResolver struct{ *Resolver }
