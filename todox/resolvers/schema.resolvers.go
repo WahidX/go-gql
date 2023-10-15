@@ -15,10 +15,18 @@ import (
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
+	var lastName string
+	if input.LastName == nil {
+		lastName = ""
+	} else {
+		lastName = *input.LastName
+	}
+
 	return r.Resolver.Store.CreateUser(ctx, &model.User{
-		ID:   uuid.NewString(),
-		Name: input.Name,
-		Age:  input.Age,
+		ID:        uuid.NewString(),
+		FirstName: input.FirstName,
+		LastName:  lastName,
+		Age:       input.Age,
 	}), nil
 }
 

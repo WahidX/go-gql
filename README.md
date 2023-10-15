@@ -90,6 +90,24 @@ So the app has 2 layers.
   - Subscription
 - Resolvers: functions that responds to graphql requests
 - Queries and Mutations: Queries to fetch data, Mutations to do some write operation on data.
+- Fragments are a piece of logic that can be shared between multiple queries and mutations.
+  Example:
+  While Querying users we can use NameParts fragments like this:
+
+  ```graphql
+  fragment NameParts on User {
+  	firstName
+  	lastName
+  }
+
+  query GetUsers {
+  	users {
+  		age
+  		id
+  		...NameParts
+  	}
+  }
+  ```
 
 ## Things to learn
 

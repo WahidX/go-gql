@@ -10,7 +10,8 @@ type Todo {
 
 type User {
 	id: ID!
-	name: String!
+	firstName: String!
+	lastName: String!
 	age: Int!
 }
 
@@ -26,7 +27,8 @@ input NewTodo {
 }
 
 input NewUser {
-	name: String!
+	firstName: String!
+	lastName: String
 	age: Int!
 }
 

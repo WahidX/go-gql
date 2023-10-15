@@ -8,8 +8,9 @@ type NewTodo struct {
 }
 
 type NewUser struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+	FirstName string  `json:"firstName"`
+	LastName  *string `json:"lastName,omitempty"`
+	Age       int     `json:"age"`
 }
 
 type Todo struct {
@@ -21,7 +22,8 @@ type Todo struct {
 }
 
 type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+	ID        string `json:"id"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Age       int    `json:"age"`
 }
