@@ -109,6 +109,19 @@ So the app has 2 layers.
   }
   ```
 
+- Variables: In graphql variables are used in parameterized queries and mutations making them more dynamic and reusable.
+
+```graphql
+query GetUsers($limit: Int = 10) {
+	users(limit: $limit) {
+		id
+		name
+	}
+}
+```
+
+In this case if no value is passed for limit, 10 is the default value.
+
 ## Things to learn
 
 - Fragments: To reuse parts of your queries and keep them DRY (Don't Repeat Yourself).

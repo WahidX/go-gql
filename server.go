@@ -26,7 +26,7 @@ func main() {
 
 	router.Handle("/", playground.Handler("TodoX Playground", "/query"))
 	router.Handle("/graph", srv)
-	router.Post("/query", RAWhandler)
+	router.Post("/raw", RAWhandler)
 	router.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))
