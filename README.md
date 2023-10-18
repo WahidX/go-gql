@@ -83,14 +83,27 @@ So the app has 2 layers.
 
 ## Concepts
 
-- Schema Definition Language(SDL): A simple syntax for describing your data types, queries, mutations, subscriptions.
-- 3 Main graphql types
+- ## Schema Definition Language(SDL)
+
+  A simple syntax for describing your data types, queries, mutations, subscriptions.
+
+- ## 3 Main graphql types
+
   - Query
   - Mutation
   - Subscription
-- Resolvers: functions that responds to graphql requests
-- Queries and Mutations: Queries to fetch data, Mutations to do some write operation on data.
-- Fragments are a piece of logic that can be shared between multiple queries and mutations.
+
+- ## Resolvers
+
+  Resolver Functions that responds to graphql requests
+
+- ## Queries and Mutations
+
+  Queries to fetch data, Mutations to do some write operation on data.
+
+- ## Fragments
+
+  These are a piece of logic that can be shared between multiple queries and mutations.
   Example:
   While Querying users we can use NameParts fragments like this:
 
@@ -109,18 +122,118 @@ So the app has 2 layers.
   }
   ```
 
-- Variables: In graphql variables are used in parameterized queries and mutations making them more dynamic and reusable.
+- ## Variables
 
-```graphql
-query GetUsers($limit: Int = 10) {
-	users(limit: $limit) {
-		id
-		name
-	}
-}
-```
+  In graphql variables are used in parameterized queries and mutations making them more dynamic and reusable.
 
-In this case if no value is passed for limit, 10 is the default value.
+  ```graphql
+  query GetUsers($limit: Int = 10) {
+  	users(limit: $limit) {
+  		id
+  		name
+  	}
+  }
+  ```
+
+  In this case if no value is passed for limit, 10 is the default value.
+
+- ## Directives:
+
+  Directives in GraphQL provide a way to describe alternate runtime execution and type validation behavior in a GraphQL document. They are prefixed with an @ symbol and can appear after almost any form of syntax within the GraphQL query or schema languages.
+
+  ### Common Use Cases
+
+  - #### Conditional Field Inclusion
+
+    Using @include and @skip directives to conditionally include or skip fields.
+
+    ```graphql
+    query getUser($includeEmail: Boolean!) {
+    	user {
+    		id
+    		name
+    		email @include(if: $includeEmail)
+    	}
+    }
+    ```
+
+  - #### Deprecation
+
+    Marking fields as deprecated with @deprecated.
+
+    ```graphql
+    type User {
+    	id: ID!
+    	oldField: String @deprecated(reason: "Use newField.")
+    	newField: String
+    }
+    ```
+
+  - #### Server-side Directives:
+
+    Custom directives defined on the server can perform various tasks like authorization, formatting, or other domain-specific logic.
+
+    ```graphql
+    type Query {
+    	posts: [Post] @auth(requires: ADMIN)
+    }
+    ```
+
+  - #### Unions
+
+    We can declare types with union of multiple types. In result also we can use the new union type. If a query returns a union field then using `__typename` we should mention the schema of the result. [see docs](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces)
+
+  - #### interfaces
+
+    We can declare interfaces with children types inside. If a type imeplements an interface type then it must include all the children types mentioned in the interface.
+
+    ```graphql
+    interface Book {
+    	title: String!
+    	author: Author!
+    }
+
+    type Textbook implements Book {
+    	title: String!
+    	author: Author!
+    	courses: [Course!]!
+    }
+
+    type ColoringBook implements Book {
+    	title: String!
+    	author: Author!
+    	colors: [String!]!
+    }
+
+    type Query {
+    	books: [Book!]!
+    }
+    ```
+
+    While resolving we can again use the `__typename` to identify the proper object.
+
+    ```graphql
+    query GetBooks {
+    	books {
+    		# Querying for __typename is almost always recommended,
+    		# but it's even more important when querying a field that
+    		# might return one of multiple types.
+    		__typename
+    		title
+    		... on Textbook {
+    			courses {
+    				# Only present in Textbook
+    				name
+    			}
+    		}
+    		... on ColoringBook {
+    			colors # Only present in ColoringBook
+    		}
+    	}
+    }
+    ```
+
+    [see docs](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces)
 
 ## Things to learn
 
@@ -128,4 +241,3 @@ In this case if no value is passed for limit, 10 is the default value.
 - Variables: Know how to use variables to pass dynamic values to your GraphQL queries and mutations
 - Alias: Learn how to use aliases to request multiple fields with the same name from a single query
 - Directives: Understand GraphQL directives like @include and @skip to conditionally include or skip fields in a query
--
